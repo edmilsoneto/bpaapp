@@ -32,10 +32,10 @@ export function DashboardCharts({ expected, collected, pending, paidStudentsCoun
   ]
 
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
-      <Card className="lg:col-span-4 bg-gradient-to-b from-neutral-900 to-neutral-950 border-neutral-800 shadow-xl">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-xl font-bold flex items-center gap-2 text-white">
+    <div className="grid gap-4 xl:grid-cols-7">
+      <Card className="overflow-hidden border-neutral-800 bg-gradient-to-b from-neutral-900 to-neutral-950 shadow-xl xl:col-span-4">
+        <CardHeader className="pb-2 sm:pb-3">
+          <CardTitle className="flex items-center gap-2 text-lg font-bold text-white sm:text-xl">
             <Wallet className="h-5 w-5 text-indigo-400" />
             Balanço Financeiro
           </CardTitle>
@@ -43,25 +43,25 @@ export function DashboardCharts({ expected, collected, pending, paidStudentsCoun
             Resumo de receitas do mês atual
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-3 gap-4 mb-6">
-            <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-3">
+        <CardContent className="p-4 sm:p-6">
+          <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4 sm:mb-6">
+            <div className="rounded-xl border border-neutral-800 bg-neutral-900/50 p-3">
               <p className="text-xs text-neutral-400 mb-1 flex items-center gap-1">Previsto</p>
-              <p className="text-lg font-bold text-indigo-400">{formatCurrency(expected)}</p>
+              <p className="text-base font-bold text-indigo-400 sm:text-lg">{formatCurrency(expected)}</p>
             </div>
-            <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-3">
+            <div className="rounded-xl border border-neutral-800 bg-neutral-900/50 p-3">
               <p className="text-xs text-neutral-400 mb-1 flex items-center gap-1"><TrendingUp className="h-3 w-3 text-emerald-500" /> Arrecadado</p>
-              <p className="text-lg font-bold text-emerald-500">{formatCurrency(collected)}</p>
+              <p className="text-base font-bold text-emerald-500 sm:text-lg">{formatCurrency(collected)}</p>
             </div>
-            <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-3">
+            <div className="rounded-xl border border-neutral-800 bg-neutral-900/50 p-3">
               <p className="text-xs text-neutral-400 mb-1 flex items-center gap-1"><AlertCircle className="h-3 w-3 text-rose-500" /> Pendente</p>
-              <p className="text-lg font-bold text-rose-500">{formatCurrency(pending)}</p>
+              <p className="text-base font-bold text-rose-500 sm:text-lg">{formatCurrency(pending)}</p>
             </div>
           </div>
           
-          <div className="h-[240px] w-full">
+          <div className="h-[220px] w-full sm:h-[280px]">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={revenueData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+              <BarChart data={revenueData} margin={{ top: 10, right: 10, left: -24, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorExpected" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#818cf8" stopOpacity={1}/>
@@ -77,8 +77,8 @@ export function DashboardCharts({ expected, collected, pending, paidStudentsCoun
                   </linearGradient>
                 </defs>
                 <CartesianGrid stroke="#262626" vertical={false} strokeDasharray="4 4" />
-                <XAxis dataKey="name" tick={{ fill: '#a3a3a3', fontSize: 12 }} axisLine={false} tickLine={false} dy={10} />
-                <YAxis tick={{ fill: '#a3a3a3', fontSize: 12 }} axisLine={false} tickLine={false} tickFormatter={(value) => `R$${value}`} />
+                <XAxis dataKey="name" tick={{ fill: '#a3a3a3', fontSize: 11 }} axisLine={false} tickLine={false} dy={10} />
+                <YAxis tick={{ fill: '#a3a3a3', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(value) => `R$${value}`} width={44} />
                 <Tooltip
                   cursor={{ fill: '#262626', opacity: 0.4 }}
                   formatter={(value: number) => [formatCurrency(value), 'Valor']}
@@ -95,9 +95,9 @@ export function DashboardCharts({ expected, collected, pending, paidStudentsCoun
         </CardContent>
       </Card>
 
-      <Card className="lg:col-span-3 bg-gradient-to-b from-neutral-900 to-neutral-950 border-neutral-800 shadow-xl flex flex-col">
+      <Card className="flex flex-col overflow-hidden border-neutral-800 bg-gradient-to-b from-neutral-900 to-neutral-950 shadow-xl xl:col-span-3">
         <CardHeader className="pb-0">
-          <CardTitle className="text-xl font-bold flex items-center gap-2 text-white">
+          <CardTitle className="flex items-center gap-2 text-lg font-bold text-white sm:text-xl">
             <Users className="h-5 w-5 text-emerald-400" />
             Status dos Alunos
           </CardTitle>
@@ -105,8 +105,8 @@ export function DashboardCharts({ expected, collected, pending, paidStudentsCoun
             Adesão de pagamentos no mês
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex-1 flex flex-col justify-center">
-          <div className="h-[220px] w-full relative mb-4">
+        <CardContent className="flex flex-1 flex-col justify-center p-4 sm:p-6">
+          <div className="relative mb-4 h-[200px] w-full sm:h-[220px]">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Tooltip 
@@ -123,6 +123,8 @@ export function DashboardCharts({ expected, collected, pending, paidStudentsCoun
                   paddingAngle={5}
                   dataKey="value"
                   stroke="none"
+                  innerRadius={50}
+                  outerRadius={78}
                 >
                   {studentStatusData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.fill} />
@@ -132,13 +134,13 @@ export function DashboardCharts({ expected, collected, pending, paidStudentsCoun
             </ResponsiveContainer>
             
             {/* Inner Text for Donut Chart */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="text-3xl font-bold text-white">{paidPercentage}%</span>
+            <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+              <span className="text-2xl font-bold text-white sm:text-3xl">{paidPercentage}%</span>
               <span className="text-xs text-neutral-400">Pagos</span>
             </div>
           </div>
           
-          <div className="grid grid-cols-2 gap-3 mt-auto">
+          <div className="mt-auto grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div className="flex flex-col p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
               <span className="text-xs text-emerald-400 mb-1 flex items-center gap-1">
                 <div className="w-2 h-2 rounded-full bg-emerald-500" /> Pagos

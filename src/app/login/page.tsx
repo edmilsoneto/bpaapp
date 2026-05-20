@@ -42,20 +42,20 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black p-4">
+    <div className="relative isolate flex min-h-dvh items-center justify-center overflow-hidden bg-black px-4 py-6">
       {/* Background gradients for design depth */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-fuchsia-600/20 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neutral-900/40 rounded-full blur-[120px]" />
+        <div className="absolute top-1/4 left-1/4 h-56 w-56 rounded-full bg-fuchsia-600/20 blur-[90px] sm:h-96 sm:w-96 sm:blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/4 h-56 w-56 rounded-full bg-neutral-900/40 blur-[90px] sm:h-96 sm:w-96 sm:blur-[120px]" />
       </div>
 
-      <Card className="w-full max-w-md bg-neutral-950 border-neutral-800 text-white shadow-2xl relative z-10">
+      <Card className="relative z-10 w-full max-w-sm border-neutral-800 bg-neutral-950 text-white shadow-2xl sm:max-w-md">
         <CardHeader className="flex flex-col items-center space-y-4">
-          <div className="h-24 w-24 relative flex items-center justify-center bg-black rounded-2xl p-2 border border-neutral-800">
+          <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-neutral-800 bg-black p-2 sm:h-24 sm:w-24">
             <Image src="/logo.png" alt="BPA 3x3 Logo" width={96} height={96} className="object-contain" />
           </div>
           <div className="text-center space-y-1">
-            <CardTitle className="text-2xl font-bold tracking-tight">BPA 3x3</CardTitle>
+            <CardTitle className="text-xl font-bold tracking-tight sm:text-2xl">BPA 3x3</CardTitle>
             <CardDescription className="text-neutral-400">
               Painel de Controle Financeiro
             </CardDescription>

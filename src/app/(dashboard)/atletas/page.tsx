@@ -111,11 +111,11 @@ export default function AtletasPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-white">Gestão de Atletas</h1>
-        <Button onClick={openNewModal} className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white">Novo Atleta</Button>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-2xl font-bold text-white sm:text-3xl">Gestão de Atletas</h1>
+        <Button onClick={openNewModal} className="w-full bg-fuchsia-600 text-white hover:bg-fuchsia-700 sm:w-auto">Novo Atleta</Button>
         <Dialog open={open} onOpenChange={setOpen}>
-          <DialogContent>
+          <DialogContent className="max-w-[calc(100vw-1rem)] sm:max-w-md">
             <DialogHeader>
               <DialogTitle>{isEditing ? 'Editar Atleta' : 'Novo Atleta'}</DialogTitle>
             </DialogHeader>
@@ -135,7 +135,7 @@ export default function AtletasPage() {
                 </div>
               )}
             </div>
-            <div className="flex justify-end gap-2">
+            <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
               <Button variant="outline" onClick={() => setOpen(false)}>Cancelar</Button>
               <Button onClick={handleSave} className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white">Salvar</Button>
             </div>

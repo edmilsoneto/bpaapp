@@ -83,15 +83,15 @@ export default function CustosPage() {
   return (
     <div className="space-y-8 pb-10">
       {/* Header and Month Selector */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-white flex items-center gap-3">
-            <Wallet className="w-8 h-8 text-fuchsia-500" />
+          <h1 className="flex items-center gap-3 text-2xl font-bold text-white sm:text-3xl">
+            <Wallet className="h-7 w-7 text-fuchsia-500 sm:h-8 sm:w-8" />
             Custos Fixos da Equipe
           </h1>
           <p className="text-neutral-400 mt-2">Gerencie as despesas mensais e acompanhe os pagamentos.</p>
         </div>
-        <div className="w-full md:w-64">
+        <div className="w-full sm:w-64">
           <label className="text-xs font-semibold uppercase tracking-wider text-neutral-500 mb-2 block">Mês de Referência</label>
           <Select 
             value={currentMonthStr} 
@@ -115,7 +115,7 @@ export default function CustosPage() {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-3">
         <Card className="bg-gradient-to-br from-neutral-900 to-neutral-950 border-neutral-800 shadow-xl overflow-hidden relative">
           <div className="absolute top-0 right-0 p-4 opacity-10"><DollarSign className="w-24 h-24" /></div>
           <CardHeader className="pb-2">
@@ -153,7 +153,7 @@ export default function CustosPage() {
       {/* Main Content Area */}
       <Card className="bg-neutral-950 border-neutral-900 shadow-2xl rounded-2xl overflow-hidden">
         <CardHeader className="border-b border-neutral-900 bg-neutral-900/40 pb-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
               <CardTitle className="text-xl flex items-center gap-2 text-white">
                 <Receipt className="w-5 h-5 text-fuchsia-500" />
@@ -162,7 +162,7 @@ export default function CustosPage() {
               <CardDescription className="text-neutral-400 mt-1">Controle individual de pagamentos de fornecedores e taxas.</CardDescription>
             </div>
             {/* Progress Bar */}
-            <div className="w-full md:w-64 space-y-2">
+            <div className="w-full space-y-2 sm:w-64">
               <div className="flex justify-between text-xs font-medium">
                 <span className="text-neutral-400">Progresso do Mês</span>
                 <span className="text-emerald-500">{progressPercentage}%</span>

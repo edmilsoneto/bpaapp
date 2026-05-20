@@ -98,9 +98,9 @@ export function TrainingCalendar() {
 
   return (
     <Card className="w-full h-full min-h-[380px] bg-neutral-950 border-neutral-900 text-white">
-      <CardHeader className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <CardHeader className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <CardTitle className="text-lg">Calendário de Treino</CardTitle>
+          <CardTitle className="text-base sm:text-lg">Calendário de Treino</CardTitle>
           <p className="text-sm text-neutral-400">Somente terças e quintas podem ser marcadas como treino.</p>
         </div>
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
@@ -129,8 +129,8 @@ export function TrainingCalendar() {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="p-4">
-        <div className="grid grid-cols-7 gap-2 text-center text-[11px] font-semibold uppercase tracking-widest text-neutral-400">
+      <CardContent className="p-3 sm:p-4">
+        <div className="grid grid-cols-7 gap-1.5 text-center text-[10px] font-semibold uppercase tracking-widest text-neutral-400 sm:gap-2 sm:text-[11px]">
           {['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'].map((weekday) => (
             <div key={weekday} className="py-2">
               {weekday}
@@ -141,7 +141,7 @@ export function TrainingCalendar() {
         {loading ? (
           <div className="py-10 text-center text-neutral-500">Carregando treinos...</div>
         ) : (
-          <div className="mt-2 grid grid-cols-7 gap-2 text-center">
+          <div className="mt-2 grid grid-cols-7 gap-1.5 text-center sm:gap-2">
             {calendarDays.map((calendarItem, index) => {
               const isSelected = activeDays.has(calendarItem.day)
               const isAllowed = calendarItem.isCurrentMonth && calendarItem.isTrainingDay
@@ -149,7 +149,7 @@ export function TrainingCalendar() {
                 <Button
                   key={`${calendarItem.day}-${index}`}
                   variant={isSelected ? 'secondary' : 'outline'}
-                  className={`min-h-[54px] rounded-md border px-0 py-3 text-sm font-medium transition-colors duration-200 ${
+                  className={`min-h-[44px] rounded-md border px-0 py-2 text-xs font-medium transition-colors duration-200 sm:min-h-[54px] sm:py-3 sm:text-sm ${
                     !calendarItem.isCurrentMonth
                       ? 'cursor-default opacity-0'
                       : isSelected
@@ -168,7 +168,7 @@ export function TrainingCalendar() {
           </div>
         )}
 
-        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 sm:gap-4">
           <div>
             <p className="text-sm text-neutral-400">Dias marcados</p>
             <p className="text-xl font-semibold">{totalDays}</p>

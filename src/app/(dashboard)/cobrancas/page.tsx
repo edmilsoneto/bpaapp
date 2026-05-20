@@ -108,9 +108,9 @@ export default function CobrancasPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <h1 className="text-3xl font-bold text-white">Controle de Mensalidades</h1>
-        <div className="w-full md:w-64">
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <h1 className="text-2xl font-bold text-white sm:text-3xl">Controle de Mensalidades</h1>
+        <div className="w-full sm:w-64">
           <Select 
             value={currentMonthStr} 
             onValueChange={(val) => {

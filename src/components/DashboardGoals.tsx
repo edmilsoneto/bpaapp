@@ -120,15 +120,15 @@ export function DashboardGoals() {
   return (
     <div className="space-y-6 h-full">
       <Card className="h-full bg-neutral-950 border-neutral-900 text-white">
-        <CardHeader className="flex flex-row items-center justify-between">
+        <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <CardTitle className="text-xl font-bold text-white">Metas do Time</CardTitle>
+            <CardTitle className="text-lg font-bold text-white sm:text-xl">Metas do Time</CardTitle>
             <CardDescription className="text-neutral-400">Acompanhamento de caixas para novos uniformes, inscrições de torneios, etc.</CardDescription>
           </div>
         </CardHeader>
         <CardContent>
           {/* Add Goal Form */}
-          <form onSubmit={handleAddGoal} className="grid gap-4 md:grid-cols-3 mb-6 items-end bg-neutral-900 p-4 rounded-xl border border-neutral-800">
+          <form onSubmit={handleAddGoal} className="mb-6 grid items-end gap-4 rounded-xl border border-neutral-800 bg-neutral-900 p-4 sm:grid-cols-2 xl:grid-cols-3">
             <div className="space-y-2">
               <Label htmlFor="title" className="text-neutral-300 font-medium">Nome da Meta</Label>
               <Input
@@ -153,7 +153,7 @@ export function DashboardGoals() {
                 required
               />
             </div>
-            <Button type="submit" className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-medium">
+            <Button type="submit" className="w-full bg-fuchsia-600 font-medium text-white hover:bg-fuchsia-700 sm:w-auto">
               <Plus className="w-4 h-4 mr-2" /> Adicionar Meta
             </Button>
           </form>
@@ -171,7 +171,7 @@ export function DashboardGoals() {
 
                 return (
                   <div key={goal.id} className="p-4 rounded-xl border border-neutral-800 bg-neutral-900 shadow-sm space-y-3">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                       <div>
                         <h4 className="font-bold text-lg text-white">{goal.title}</h4>
                         <p className="text-sm text-neutral-400">
@@ -179,16 +179,16 @@ export function DashboardGoals() {
                         </p>
                       </div>
 
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
                         {isEditing ? (
-                          <div className="flex items-center gap-2">
+                          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
                             <Input
                               type="number"
                               step="0.01"
                               value={editValue}
                               placeholder="Atual"
                               onChange={(e) => setEditValue(e.target.value)}
-                              className="w-24 h-9 bg-neutral-950 border-neutral-800 text-white focus-visible:ring-fuchsia-600"
+                              className="h-9 w-full bg-neutral-950 border-neutral-800 text-white focus-visible:ring-fuchsia-600 sm:w-24"
                             />
                             <Button size="sm" onClick={() => handleUpdateAmount(goal.id)} className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white h-9">
                               Salvar
@@ -198,7 +198,7 @@ export function DashboardGoals() {
                             </Button>
                           </div>
                         ) : (
-                          <>
+                          <div className="flex items-center gap-2">
                             <Button
                               size="sm"
                               variant="outline"
@@ -218,7 +218,7 @@ export function DashboardGoals() {
                             >
                               <Trash2 className="w-4 h-4 text-red-400" />
                             </Button>
-                          </>
+                          </div>
                         )}
                       </div>
                     </div>

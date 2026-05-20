@@ -80,18 +80,18 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ m
 
   return (
     <main className="relative z-10">
-<div className="flex justify-between items-center mb-6">
-  <h1 className="text-3xl font-bold text-white">Dashboard Financeiro</h1>
-  <CloseMonthButton currentMonth={data.currentMonth} />
-</div>
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-2xl font-bold text-white sm:text-3xl">Dashboard Financeiro</h1>
+        <CloseMonthButton currentMonth={data.currentMonth} />
+      </div>
       
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <Card className="h-full bg-neutral-950 border-neutral-900 text-white">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Previsto</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-white">
+            <div className="text-2xl font-bold text-white sm:text-3xl">
               R$ {data.expected.toFixed(2)}
             </div>
             <p className="text-xs text-neutral-400 mt-1">Soma das mensalidades</p>
@@ -102,7 +102,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ m
             <CardTitle className="text-sm font-medium">Total Arrecadado</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-500">
+            <div className="text-2xl font-bold text-green-500 sm:text-3xl">
               R$ {data.collected.toFixed(2)}
             </div>
             <p className="text-xs text-neutral-400 mt-1">Recebido este mês</p>
@@ -113,7 +113,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ m
             <CardTitle className="text-sm font-medium">Custos Pagos / Total</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-fuchsia-500">
+            <div className="text-2xl font-bold text-fuchsia-500 sm:text-3xl">
               R$ {data.paidCosts.toFixed(2)} / R$ {data.totalCosts.toFixed(2)}
             </div>
             <p className="text-xs text-neutral-400 mt-1">Sampaio, Quadra, etc.</p>
@@ -124,7 +124,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ m
             <CardTitle className="text-sm font-medium">Saldo Líquido (Atual)</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className={`text-2xl font-bold ${data.collected - data.paidCosts >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+            <div className={`text-2xl font-bold sm:text-3xl ${data.collected - data.paidCosts >= 0 ? 'text-green-500' : 'text-red-500'}`}>
               R$ {(data.collected - data.paidCosts).toFixed(2)}
             </div>
             <p className="text-xs text-neutral-400 mt-1">Arrecadado - Custos Pagos</p>
