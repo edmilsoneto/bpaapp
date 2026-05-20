@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id         String    @id @default(uuid())
+  name       String
+  monthlyFee Float     @default(80.0)
+  isActive   Boolean   @default(true)
+  payments   Payment[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Payment {
+  id         String   @id @default(uuid())
+  studentId  String
+  student    Student  @relation(fields: [studentId], references: [id])
+  month      String   // format "MM/YYYY"
+  amountPaid Float
+  status     String   // "PAID" | "PENDING"
+  paidAt     DateTime?
+  receiptUrl String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model CostPayment {
+  id         String   @id @default(uuid())
+  name       String   // "Sampaio", "Quadra", etc.
+  value      Float
+  month      String   // format "MM/YYYY"
+  status     String   // "PAID" | "PENDING"
+  paidAt     DateTime?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model TrainingDay {
+  id         String   @id @default(uuid())
+  month      String   // format "MM/YYYY"
+  day        Int
+  date       DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Goal {
+  id            String   @id @default(uuid())
+  title         String
+  targetAmount  Float
+  currentAmount Float    @default(0.0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
