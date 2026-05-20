@@ -81,7 +81,7 @@ export function DashboardCharts({ expected, collected, pending, paidStudentsCoun
                 <YAxis tick={{ fill: '#a3a3a3', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(value) => `R$${value}`} width={44} />
                 <Tooltip
                   cursor={{ fill: '#262626', opacity: 0.4 }}
-                  formatter={(value: number) => [formatCurrency(value), 'Valor']}
+                  formatter={(value: any) => [formatCurrency(Number(value) || 0), 'Valor']}
                   contentStyle={{ backgroundColor: '#171717', border: '1px solid #3f3f46', borderRadius: '12px', color: '#fff', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.5)' }}
                 />
                 <Bar dataKey="value" radius={[6, 6, 0, 0]} maxBarSize={60}>
@@ -110,7 +110,7 @@ export function DashboardCharts({ expected, collected, pending, paidStudentsCoun
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Tooltip 
-                  formatter={(value: number) => [`${value} aluno(s)`, 'Quantidade']}
+                  formatter={(value: any) => [`${value} aluno(s)`, 'Quantidade']}
                   contentStyle={{ backgroundColor: '#171717', border: '1px solid #3f3f46', borderRadius: '12px', color: '#fff' }}
                   itemStyle={{ color: '#fff' }}
                 />
@@ -123,8 +123,6 @@ export function DashboardCharts({ expected, collected, pending, paidStudentsCoun
                   paddingAngle={5}
                   dataKey="value"
                   stroke="none"
-                  innerRadius={50}
-                  outerRadius={78}
                 >
                   {studentStatusData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.fill} />
