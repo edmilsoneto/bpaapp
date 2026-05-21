@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { LayoutDashboard, Users, CreditCard, DollarSign, LogOut, CalendarCheck, FileText } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
+import { logoutAction } from '@/app/login/actions'
 
 const navLinks = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -39,9 +40,7 @@ export default function DashboardLayout({
 
   const handleLogout = async () => {
     setLoggingOut(true)
-    await fetch('/api/auth/logout', { method: 'POST' })
-    router.push('/login')
-    router.refresh()
+    await logoutAction()
   }
 
   return (
