@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutDashboard, Users, CreditCard, DollarSign, LogOut } from 'lucide-react'
+import { LayoutDashboard, Users, CreditCard, DollarSign, LogOut, CalendarCheck } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 
 const navLinks = [
@@ -11,6 +11,7 @@ const navLinks = [
   { href: '/atletas', label: 'Atletas', icon: Users },
   { href: '/cobrancas', label: 'Cobranças', icon: CreditCard },
   { href: '/custos', label: 'Custos Fixos', icon: DollarSign },
+  { href: '/frequencia', label: 'Frequência', icon: CalendarCheck },
 ]
 
 export default function DashboardLayout({
