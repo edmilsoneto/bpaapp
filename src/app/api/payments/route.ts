@@ -32,8 +32,7 @@ export async function GET(request: Request) {
         monthlyFee: student.monthlyFee,
         status: payment ? payment.status : 'PENDING',
         paymentId: payment ? payment.id : null,
-        paidAt: payment ? payment.paidAt : null,
-        receiptUrl: payment ? payment.receiptUrl : null
+        paidAt: payment ? payment.paidAt : null
       }
     })
 

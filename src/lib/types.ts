@@ -12,7 +12,6 @@ export interface Payment {
   studentPhone?: string | null
   monthlyFee: number
   status: PaymentStatus
-  receiptUrl?: string | null
 }
 
 export interface Cost {

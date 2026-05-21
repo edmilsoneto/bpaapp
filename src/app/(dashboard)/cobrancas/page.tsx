@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
 import { Button } from '@/components/ui/button'
-import { Eye, UploadCloud, MessageCircle } from 'lucide-react'
+import { MessageCircle } from 'lucide-react'
 import { generateMonthOptions, formatMonth, parseMonthString } from '@/lib/date-utils'
 import type { Payment, PaymentStatus } from '@/lib/types'
 import { toast } from 'sonner'
@@ -18,9 +18,6 @@ export default function CobrancasPage() {
   const [currentDate, setCurrentDate] = useState(new Date())
   const [payments, setPayments] = useState<Payment[]>([])
   const [loading, setLoading] = useState(true)
-  const [uploadingId, setUploadingId] = useState<string | null>(null)
-  
-  const fileInputRefs = useRef<Record<string, HTMLInputElement | null>>({})
 
   const months = useMemo(() => generateMonthOptions(DEFAULT_MONTH_RANGE), [])
   const currentMonthStr = useMemo(() => formatMonth(currentDate), [currentDate])
@@ -68,7 +65,7 @@ export default function CobrancasPage() {
     if (res.ok) {
       const data = await res.json()
       setPayments((prevPayments) => prevPayments.map((p) => 
-        p.studentId === studentId ? { ...p, status: newStatus, paymentId: data.id, receiptUrl: data.receiptUrl } : p
+        p.studentId === studentId ? { ...p, status: newStatus, paymentId: data.id } : p
       ))
       toast.success('Pagamento atualizado com sucesso!')
     } else {
@@ -88,36 +85,15 @@ export default function CobrancasPage() {
     window.open(url, '_blank')
   }
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>, paymentId: string | null | undefined, studentId: string) => {
-    const file = e.target.files?.[0]
-    if (!file || !paymentId) return
-
-    setUploadingId(studentId)
-    const formData = new FormData()
-    formData.append('file', file)
-    formData.append('paymentId', paymentId)
-
-    try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      })
-
-      if (res.ok) {
-        const data = await res.json()
-        setPayments(payments => payments.map(p => 
-          p.studentId === studentId ? { ...p, receiptUrl: data.receiptUrl } : p
-        ))
-        toast.success('Comprovante enviado com sucesso!')
-      } else {
-        toast.error('Erro ao enviar comprovante')
-      }
-    } catch (error) {
-      console.error(error)
-      toast.error('Erro ao enviar arquivo')
-    } finally {
-      setUploadingId(null)
+  const sendWhatsAppMessage = (phone: string, name: string, fee: number, month: string) => {
+    const cleanPhone = phone.replace(/\D/g, '')
+    let finalPhone = cleanPhone
+    if (cleanPhone.length === 10 || cleanPhone.length === 11) {
+      finalPhone = `55${cleanPhone}`
     }
+    const text = `Olá ${name}! A sua mensalidade de ${month} no valor de R$ ${fee.toFixed(2)} está pendente. A chave PIX é: edmilsoneto30@gmail.com`
+    const url = `https://wa.me/${finalPhone}?text=${encodeURIComponent(text)}`
+    window.open(url, '_blank')
   }
 
   return (
@@ -154,7 +130,7 @@ export default function CobrancasPage() {
                 <TableHead>Atleta</TableHead>
                 <TableHead>Valor Mensalidade</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead>Comprovante PIX</TableHead>
+                <TableHead>Cobrança</TableHead>
                 <TableHead className="text-right">Marcar Pago</TableHead>
               </TableRow>
             </TableHeader>
@@ -182,7 +158,7 @@ export default function CobrancasPage() {
                       </span>
                     </TableCell>
                     <TableCell>
-                      {payment.status === 'PENDING' && payment.studentPhone && (
+                      {payment.status === 'PENDING' && payment.studentPhone ? (
                         <Button
                           size="sm"
                           variant="outline"
@@ -190,58 +166,10 @@ export default function CobrancasPage() {
                           className="h-8 px-2 border-green-500/50 text-green-500 hover:bg-green-500/10"
                         >
                           <MessageCircle className="w-4 h-4 mr-1" />
-                          Cobrar
+                          WhatsApp
                         </Button>
-                      )}
-                      {payment.status === 'PAID' && (
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => handleFileChange(e, payment.paymentId, payment.studentId)}
-                            className="hidden"
-                            ref={(el) => {
-                              fileInputRefs.current[payment.studentId] = el;
-                            }}
-                          />
-                          
-                          {payment.receiptUrl ? (
-                            <div className="flex items-center gap-1">
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={() => {
-                                  const receiptUrl = payment.receiptUrl
-                                  if (receiptUrl) {
-                                    window.open(receiptUrl, '_blank')
-                                  }
-                                }}
-                                className="h-8 px-2"
-                              >
-                                <Eye className="w-4 h-4 mr-1 text-fuchsia-600" /> Ver PIX
-                              </Button>
-                              <Button
-                                size="sm"
-                                variant="ghost"
-                                onClick={() => fileInputRefs.current[payment.studentId]?.click()}
-                                className="h-8 px-2 text-xs text-neutral-500"
-                              >
-                                Alterar
-                              </Button>
-                            </div>
-                          ) : (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              disabled={uploadingId === payment.studentId || !payment.paymentId}
-                              onClick={() => fileInputRefs.current[payment.studentId]?.click()}
-                              className="h-8 px-2 border-dashed border-fuchsia-300 text-fuchsia-600"
-                            >
-                              <UploadCloud className="w-4 h-4 mr-1" />
-                              {uploadingId === payment.studentId ? 'Enviando...' : 'Anexar PIX'}
-                            </Button>
-                          )}
-                        </div>
+                      ) : (
+                        <span className="text-xs text-neutral-500">-</span>
                       )}
                     </TableCell>
                     <TableCell className="text-right">

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
@@ -179,7 +180,9 @@ export default function AtletasPage() {
                   <TableRow key={student.id}>
                     <TableCell className="font-medium">
                       <div className="flex items-center gap-2">
-                        {student.name}
+                        <Link href={`/atletas/${student.id}`} className="hover:text-fuchsia-400 hover:underline transition-colors">
+                          {student.name}
+                        </Link>
                         {student.monthlyFee === 0 && (
                           <Badge variant="outline" className="border-fuchsia-500/50 text-fuchsia-400 bg-fuchsia-500/10 px-2 py-0 h-5 text-[10px] uppercase tracking-wider">Bolsista</Badge>
                         )}
