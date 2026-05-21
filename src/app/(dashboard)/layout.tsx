@@ -3,8 +3,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutDashboard, Users, CreditCard, DollarSign, LogOut, CalendarCheck } from 'lucide-react'
+import { LayoutDashboard, Users, CreditCard, DollarSign, LogOut, CalendarCheck, FileText, Search } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
+import { CommandPalette } from '@/components/CommandPalette'
 
 const navLinks = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -12,6 +13,7 @@ const navLinks = [
   { href: '/cobrancas', label: 'Cobranças', icon: CreditCard },
   { href: '/custos', label: 'Custos Fixos', icon: DollarSign },
   { href: '/frequencia', label: 'Frequência', icon: CalendarCheck },
+  { href: '/relatorio', label: 'Relatório Mensal', icon: FileText },
 ]
 
 export default function DashboardLayout({
@@ -81,10 +83,32 @@ export default function DashboardLayout({
                   }`}
                 >
                   <Icon className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-white' : 'text-fuchsia-400'}`} />
-                  <p>{label}</p>
+                  <p className="hidden md:block">{label}</p>
+                  <p className="md:hidden truncate max-w-[80px]">{label}</p>
                 </Link>
               )
             })}
+            
+            {/* Command Palette Trigger */}
+            <button
+              onClick={() => {
+                const event = new KeyboardEvent('keydown', {
+                  key: 'k',
+                  ctrlKey: true,
+                  metaKey: true
+                })
+                document.dispatchEvent(event)
+              }}
+              className="mt-4 hidden md:flex w-full items-center justify-between rounded-lg border border-neutral-800 bg-neutral-900/50 px-3 py-2 text-sm font-medium text-neutral-400 transition-colors hover:bg-neutral-800 hover:text-white"
+            >
+              <div className="flex items-center gap-2">
+                <Search className="h-4 w-4 text-neutral-500" />
+                <span>Pesquisar...</span>
+              </div>
+              <kbd className="hidden lg:inline-flex h-5 items-center gap-1 rounded border border-neutral-700 bg-neutral-800 px-1.5 font-mono text-[10px] font-medium text-neutral-400">
+                <span className="text-xs">⌘</span>K
+              </kbd>
+            </button>
           </nav>
 
           {/* Logout Button */}
@@ -109,6 +133,9 @@ export default function DashboardLayout({
       >
         {children}
       </div>
+      
+      {/* Command Palette Overlay */}
+      <CommandPalette />
     </div>
   )
 }
