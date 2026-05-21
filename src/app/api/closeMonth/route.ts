@@ -4,7 +4,13 @@ import { prisma } from '@/lib/prisma';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { month } = body;
+    const { month, password } = body;
+
+    const adminPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'BPA3X3100%';
+
+    if (password !== adminPassword) {
+      return NextResponse.json({ error: 'Senha incorreta' }, { status: 403 });
+    }
 
     if (!month) {
       return NextResponse.json({ error: 'Mês não fornecido' }, { status: 400 });
