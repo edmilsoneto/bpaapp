@@ -166,7 +166,7 @@ export default function CobrancasPage() {
                       <Switch
                         checked={payment.status === 'PAID'}
                         onCheckedChange={() => togglePaymentStatus(payment.studentId, payment.status, payment.monthlyFee)}
-                        className={`data-[state=checked]:bg-pink-600`}
+                        className="data-checked:!bg-fuchsia-600"
                       />
                     </TableCell>
                   </TableRow>

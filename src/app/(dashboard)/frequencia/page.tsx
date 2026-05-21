@@ -272,7 +272,7 @@ export default function FrequenciaPage() {
                             checked={att.isPresent}
                             onCheckedChange={() => toggleAttendance(att.studentId, att.isPresent)}
                             disabled={selectedDay?.isClosed}
-                            className="data-[state=checked]:bg-emerald-500"
+                            className="data-checked:!bg-emerald-500"
                           />
                         </TableCell>
                       </TableRow>
