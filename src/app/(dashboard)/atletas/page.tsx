@@ -168,7 +168,14 @@ export default function AtletasPage() {
               ) : (
                 students.map((student) => (
                   <TableRow key={student.id}>
-                    <TableCell className="font-medium">{student.name}</TableCell>
+                    <TableCell className="font-medium">
+                      <div className="flex items-center gap-2">
+                        {student.name}
+                        {student.monthlyFee === 0 && (
+                          <Badge variant="outline" className="border-fuchsia-500/50 text-fuchsia-400 bg-fuchsia-500/10 px-2 py-0 h-5 text-[10px] uppercase tracking-wider">Bolsista</Badge>
+                        )}
+                      </div>
+                    </TableCell>
                     <TableCell>R$ {student.monthlyFee.toFixed(2)}</TableCell>
                     <TableCell>
                       {student.isActive ? (

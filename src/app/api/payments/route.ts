@@ -11,7 +11,10 @@ export async function GET(request: Request) {
     }
 
     const students = await prisma.student.findMany({
-      where: { isActive: true },
+      where: { 
+        isActive: true,
+        monthlyFee: { gt: 0 }
+      },
       orderBy: { name: 'asc' }
     })
 
