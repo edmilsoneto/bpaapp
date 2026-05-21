@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Eye, UploadCloud } from 'lucide-react'
 import { generateMonthOptions, formatMonth, parseMonthString } from '@/lib/date-utils'
 import type { Payment, PaymentStatus } from '@/lib/types'
+import { toast } from 'sonner'
 
 const DEFAULT_MONTH_RANGE = 6
 
@@ -69,8 +70,9 @@ export default function CobrancasPage() {
       setPayments((prevPayments) => prevPayments.map((p) => 
         p.studentId === studentId ? { ...p, status: newStatus, paymentId: data.id, receiptUrl: data.receiptUrl } : p
       ))
+      toast.success('Pagamento atualizado com sucesso!')
     } else {
-      alert('Erro ao atualizar pagamento')
+      toast.error('Erro ao atualizar pagamento')
       void loadPayments()
     }
   }
@@ -95,12 +97,13 @@ export default function CobrancasPage() {
         setPayments(payments => payments.map(p => 
           p.studentId === studentId ? { ...p, receiptUrl: data.receiptUrl } : p
         ))
+        toast.success('Comprovante enviado com sucesso!')
       } else {
-        alert('Erro ao enviar comprovante')
+        toast.error('Erro ao enviar comprovante')
       }
     } catch (error) {
       console.error(error)
-      alert('Erro ao enviar arquivo')
+      toast.error('Erro ao enviar arquivo')
     } finally {
       setUploadingId(null)
     }

@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Plus, Trash2, Edit } from 'lucide-react'
 import type { Goal } from '@/lib/types'
+import { toast } from 'sonner'
 
 export function DashboardGoals() {
   const [goals, setGoals] = useState<Goal[]>([])
@@ -43,7 +44,7 @@ export function DashboardGoals() {
 
     const targetAmount = Number(newTarget)
     if (!newTitle.trim() || Number.isNaN(targetAmount) || targetAmount <= 0) {
-      alert('Preencha o nome da meta e o valor alvo corretamente.')
+      toast.error('Preencha o nome da meta e o valor alvo corretamente.')
       return
     }
 
@@ -61,20 +62,21 @@ export function DashboardGoals() {
       if (res.ok) {
         setNewTitle('')
         setNewTarget('')
+        toast.success('Meta criada com sucesso!')
         void fetchGoals()
       } else {
-        alert('Erro ao criar a meta')
+        toast.error('Erro ao criar a meta')
       }
     } catch (error) {
       console.error(error)
-      alert('Erro ao criar a meta')
+      toast.error('Erro ao criar a meta')
     }
   }
 
   const handleUpdateAmount = async (id: string) => {
     const currentAmount = Number(editValue)
     if (Number.isNaN(currentAmount) || currentAmount < 0) {
-      alert('Informe um valor válido para atualizar a meta.')
+      toast.error('Informe um valor válido para atualizar a meta.')
       return
     }
 
@@ -88,13 +90,14 @@ export function DashboardGoals() {
       if (res.ok) {
         setEditingGoalId(null)
         setEditValue('')
+        toast.success('Meta atualizada!')
         void fetchGoals()
       } else {
-        alert('Erro ao atualizar a meta')
+        toast.error('Erro ao atualizar a meta')
       }
     } catch (error) {
       console.error(error)
-      alert('Erro ao atualizar a meta')
+      toast.error('Erro ao atualizar a meta')
     }
   }
 
@@ -107,19 +110,20 @@ export function DashboardGoals() {
       })
 
       if (res.ok) {
+        toast.success('Meta excluída!')
         void fetchGoals()
       } else {
-        alert('Erro ao excluir a meta')
+        toast.error('Erro ao excluir a meta')
       }
     } catch (error) {
       console.error(error)
-      alert('Erro ao excluir a meta')
+      toast.error('Erro ao excluir a meta')
     }
   }
 
   return (
     <div className="space-y-6 h-full">
-      <Card className="h-full bg-neutral-950 border-neutral-900 text-white">
+      <Card className="h-full bg-neutral-950/60 backdrop-blur-xl border-white/10 text-white shadow-2xl hover:scale-[1.01] transition-transform duration-300">
         <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <CardTitle className="text-lg font-bold text-white sm:text-xl">Metas do Time</CardTitle>

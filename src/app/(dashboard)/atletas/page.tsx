@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
 import { Switch } from '@/components/ui/switch'
+import { toast } from 'sonner'
 
 interface Student {
   id: string
@@ -54,7 +55,7 @@ export default function AtletasPage() {
   const handleSave = async () => {
     const fee = Number(monthlyFee)
     if (!name.trim() || Number.isNaN(fee) || fee < 0) {
-      alert('Preencha o nome e a mensalidade corretamente.')
+      toast.error('Preencha o nome e a mensalidade corretamente.')
       return
     }
 
@@ -81,13 +82,14 @@ export default function AtletasPage() {
 
       if (res.ok) {
         setOpen(false)
+        toast.success('Atleta salvo com sucesso!')
         void fetchStudents()
       } else {
-        alert('Erro ao salvar atleta')
+        toast.error('Erro ao salvar atleta')
       }
     } catch (error) {
       console.error(error)
-      alert('Erro ao salvar atleta')
+      toast.error('Erro ao salvar atleta')
     }
   }
 

@@ -97,7 +97,7 @@ export function TrainingCalendar() {
   }, [currentDate, daysInMonth])
 
   return (
-    <Card className="w-full h-full min-h-[380px] bg-neutral-950 border-neutral-900 text-white">
+    <Card className="w-full h-full min-h-[380px] bg-neutral-950/60 backdrop-blur-xl border-white/10 text-white shadow-2xl hover:scale-[1.01] transition-transform duration-300">
       <CardHeader className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <CardTitle className="text-base sm:text-lg">Calendário de Treino</CardTitle>

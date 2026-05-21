@@ -7,6 +7,7 @@ import { Switch } from '@/components/ui/switch'
 import { formatMonth, generateMonthOptions, parseMonthString } from '@/lib/date-utils'
 import { DollarSign, Receipt, Wallet, CheckCircle2, CircleDashed, Activity, MapPin, User, FileText } from 'lucide-react'
 import type { Cost, PaymentStatus } from '@/lib/types'
+import { toast } from 'sonner'
 
 const DEFAULT_MONTH_RANGE = 6
 
@@ -70,8 +71,10 @@ export default function CustosPage() {
     })
 
     if (!res.ok) {
-      alert('Erro ao atualizar custo')
+      toast.error('Erro ao atualizar custo')
       fetchCosts(currentMonthStr)
+    } else {
+      toast.success('Custo atualizado com sucesso!')
     }
   }
 

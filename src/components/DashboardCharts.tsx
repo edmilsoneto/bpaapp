@@ -33,7 +33,7 @@ export function DashboardCharts({ expected, collected, pending, paidStudentsCoun
 
   return (
     <div className="grid gap-4 xl:grid-cols-7">
-      <Card className="overflow-hidden border-neutral-800 bg-gradient-to-b from-neutral-900 to-neutral-950 shadow-xl xl:col-span-4">
+      <Card className="overflow-hidden border-white/10 bg-neutral-950/60 backdrop-blur-xl shadow-2xl hover:scale-[1.01] transition-transform duration-300 xl:col-span-4">
         <CardHeader className="pb-2 sm:pb-3">
           <CardTitle className="flex items-center gap-2 text-lg font-bold text-white sm:text-xl">
             <Wallet className="h-5 w-5 text-indigo-400" />
@@ -95,7 +95,7 @@ export function DashboardCharts({ expected, collected, pending, paidStudentsCoun
         </CardContent>
       </Card>
 
-      <Card className="flex flex-col overflow-hidden border-neutral-800 bg-gradient-to-b from-neutral-900 to-neutral-950 shadow-xl xl:col-span-3">
+      <Card className="flex flex-col overflow-hidden border-white/10 bg-neutral-950/60 backdrop-blur-xl shadow-2xl hover:scale-[1.01] transition-transform duration-300 xl:col-span-3">
         <CardHeader className="pb-0">
           <CardTitle className="flex items-center gap-2 text-lg font-bold text-white sm:text-xl">
             <Users className="h-5 w-5 text-emerald-400" />

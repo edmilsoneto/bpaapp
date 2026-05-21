@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { PrintReportButton } from '@/components/PrintReportButton';
+import { toast } from 'sonner';
 
 export default function CloseMonthButton({ currentMonth }: { currentMonth?: string }) {
   const router = useRouter()
@@ -29,12 +30,13 @@ export default function CloseMonthButton({ currentMonth }: { currentMonth?: stri
           router.push('/')
         }
         router.refresh()
+        toast.success(`Mês ${currentMonth} encerrado com sucesso!`)
       } else {
-        alert('Erro ao encerrar mês')
+        toast.error('Erro ao encerrar mês')
       }
     } catch (error) {
       console.error(error)
-      alert('Erro ao encerrar mês')
+      toast.error('Erro ao encerrar mês')
     }
   }
 

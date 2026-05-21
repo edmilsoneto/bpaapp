@@ -86,7 +86,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ m
       </div>
       
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <Card className="h-full bg-neutral-950 border-neutral-900 text-white">
+        <Card className="h-full bg-neutral-950/60 backdrop-blur-xl border-white/10 text-white hover:scale-[1.02] transition-all duration-300 shadow-2xl">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Previsto</CardTitle>
           </CardHeader>
@@ -97,7 +97,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ m
             <p className="text-xs text-neutral-400 mt-1">Soma das mensalidades</p>
           </CardContent>
         </Card>
-        <Card className="h-full bg-neutral-950 border-neutral-900 text-white">
+        <Card className="h-full bg-neutral-950/60 backdrop-blur-xl border-white/10 text-white hover:scale-[1.02] transition-all duration-300 shadow-2xl">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Arrecadado</CardTitle>
           </CardHeader>
@@ -108,7 +108,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ m
             <p className="text-xs text-neutral-400 mt-1">Recebido este mês</p>
           </CardContent>
         </Card>
-        <Card className="h-full bg-neutral-950 border-neutral-900 text-white">
+        <Card className="h-full bg-neutral-950/60 backdrop-blur-xl border-white/10 text-white hover:scale-[1.02] transition-all duration-300 shadow-2xl">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Custos Pagos / Total</CardTitle>
           </CardHeader>
@@ -119,7 +119,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ m
             <p className="text-xs text-neutral-400 mt-1">Sampaio, Quadra, etc.</p>
           </CardContent>
         </Card>
-        <Card className="h-full bg-neutral-950 border-neutral-900 text-white">
+        <Card className="h-full bg-neutral-950/60 backdrop-blur-xl border-white/10 text-white hover:scale-[1.02] transition-all duration-300 shadow-2xl">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Saldo Líquido (Atual)</CardTitle>
           </CardHeader>
