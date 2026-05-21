@@ -157,9 +157,7 @@ export default function FrequenciaPage() {
             }}
           >
             <SelectTrigger className="w-full bg-neutral-900 border-neutral-800 text-white shadow-sm">
-              <SelectValue placeholder="Selecione o mês">
-                {months.find(m => m.value === currentMonthStr)?.label || 'Selecione o mês'}
-              </SelectValue>
+              <SelectValue placeholder="Selecione o mês" />
             </SelectTrigger>
             <SelectContent>
               {months.map((m) => (
@@ -186,16 +184,12 @@ export default function FrequenciaPage() {
                   <span className="text-sm text-neutral-400 whitespace-nowrap">Dia de Treino:</span>
                   <Select value={selectedDayId} onValueChange={(val) => { if (val) setSelectedDayId(val) }}>
                     <SelectTrigger className="w-full sm:w-40 bg-neutral-900 border-neutral-800 h-9">
-                      <SelectValue placeholder="Selecione o dia">
-                        {trainingDays.find(d => d.id === selectedDayId) 
-                          ? `Dia ${trainingDays.find(d => d.id === selectedDayId)?.day}` 
-                          : 'Selecione o dia'}
-                      </SelectValue>
+                      <SelectValue placeholder="Selecione o dia" />
                     </SelectTrigger>
                     <SelectContent>
                       {trainingDays.map(d => (
                         <SelectItem key={d.id} value={d.id}>
-                          Dia {d.day}
+                          {`Dia ${d.day}`}
                         </SelectItem>
                       ))}
                     </SelectContent>
