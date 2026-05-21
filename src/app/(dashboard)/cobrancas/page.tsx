@@ -85,16 +85,6 @@ export default function CobrancasPage() {
     window.open(url, '_blank')
   }
 
-  const sendWhatsAppMessage = (phone: string, name: string, fee: number, month: string) => {
-    const cleanPhone = phone.replace(/\D/g, '')
-    let finalPhone = cleanPhone
-    if (cleanPhone.length === 10 || cleanPhone.length === 11) {
-      finalPhone = `55${cleanPhone}`
-    }
-    const text = `Olá ${name}! A sua mensalidade de ${month} no valor de R$ ${fee.toFixed(2)} está pendente. A chave PIX é: edmilsoneto30@gmail.com`
-    const url = `https://wa.me/${finalPhone}?text=${encodeURIComponent(text)}`
-    window.open(url, '_blank')
-  }
 
   return (
     <div className="space-y-6">
