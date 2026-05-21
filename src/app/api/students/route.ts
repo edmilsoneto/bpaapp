@@ -16,7 +16,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { name, monthlyFee } = body
+    const { name, monthlyFee, phone } = body
 
     if (!name) {
       return NextResponse.json({ error: 'Name is required' }, { status: 400 })
@@ -25,7 +25,8 @@ export async function POST(request: Request) {
     const student = await prisma.student.create({
       data: {
         name,
-        monthlyFee: monthlyFee !== undefined ? parseFloat(monthlyFee) : 80.0
+        monthlyFee: monthlyFee !== undefined ? parseFloat(monthlyFee) : 80.0,
+        phone: phone || null
       }
     })
 

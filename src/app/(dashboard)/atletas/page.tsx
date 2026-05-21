@@ -16,6 +16,7 @@ interface Student {
   name: string
   monthlyFee: number
   isActive: boolean
+  phone?: string | null
 }
 
 export default function AtletasPage() {
@@ -29,6 +30,7 @@ export default function AtletasPage() {
   const [name, setName] = useState('')
   const [monthlyFee, setMonthlyFee] = useState('80')
   const [isActive, setIsActive] = useState(true)
+  const [phone, setPhone] = useState('')
 
   const fetchStudents = async () => {
     setLoading(true)
@@ -62,7 +64,8 @@ export default function AtletasPage() {
     const payload = {
       name: name.trim(),
       monthlyFee: fee,
-      isActive
+      isActive,
+      phone: phone.trim() || null
     }
 
     let url = '/api/students'
@@ -98,6 +101,7 @@ export default function AtletasPage() {
     setCurrentStudent(null)
     setName('')
     setMonthlyFee('80')
+    setPhone('')
     setIsActive(true)
     setOpen(true)
   }
@@ -107,6 +111,7 @@ export default function AtletasPage() {
     setCurrentStudent(student)
     setName(student.name)
     setMonthlyFee(student.monthlyFee.toString())
+    setPhone(student.phone || '')
     setIsActive(student.isActive)
     setOpen(true)
   }
@@ -129,6 +134,10 @@ export default function AtletasPage() {
               <div className="space-y-2">
                 <Label htmlFor="fee">Mensalidade (R$)</Label>
                 <Input id="fee" type="number" value={monthlyFee} onChange={(e) => setMonthlyFee(e.target.value)} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="phone">Telefone / WhatsApp</Label>
+                <Input id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Ex: 11999999999" />
               </div>
               {isEditing && (
                 <div className="flex items-center space-x-2 pt-2">

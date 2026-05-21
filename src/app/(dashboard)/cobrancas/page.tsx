@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
 import { Button } from '@/components/ui/button'
-import { Eye, UploadCloud } from 'lucide-react'
+import { Eye, UploadCloud, MessageCircle } from 'lucide-react'
 import { generateMonthOptions, formatMonth, parseMonthString } from '@/lib/date-utils'
 import type { Payment, PaymentStatus } from '@/lib/types'
 import { toast } from 'sonner'
@@ -75,6 +75,17 @@ export default function CobrancasPage() {
       toast.error('Erro ao atualizar pagamento')
       void loadPayments()
     }
+  }
+
+  const sendWhatsAppMessage = (phone: string, name: string, fee: number, month: string) => {
+    const cleanPhone = phone.replace(/\D/g, '')
+    let finalPhone = cleanPhone
+    if (cleanPhone.length === 10 || cleanPhone.length === 11) {
+      finalPhone = `55${cleanPhone}`
+    }
+    const text = `Olá ${name}! A sua mensalidade de ${month} no valor de R$ ${fee.toFixed(2)} está pendente. A chave PIX é: edmilsoneto30@gmail.com`
+    const url = `https://wa.me/${finalPhone}?text=${encodeURIComponent(text)}`
+    window.open(url, '_blank')
   }
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>, paymentId: string | null | undefined, studentId: string) => {
@@ -171,6 +182,17 @@ export default function CobrancasPage() {
                       </span>
                     </TableCell>
                     <TableCell>
+                      {payment.status === 'PENDING' && payment.studentPhone && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => sendWhatsAppMessage(payment.studentPhone!, payment.studentName, payment.monthlyFee, currentMonthStr)}
+                          className="h-8 px-2 border-green-500/50 text-green-500 hover:bg-green-500/10"
+                        >
+                          <MessageCircle className="w-4 h-4 mr-1" />
+                          Cobrar
+                        </Button>
+                      )}
                       {payment.status === 'PAID' && (
                         <div className="flex items-center gap-2">
                           <input

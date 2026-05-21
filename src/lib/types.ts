@@ -9,6 +9,7 @@ export interface Payment {
   paymentId?: string | null
   studentId: string
   studentName: string
+  studentPhone?: string | null
   monthlyFee: number
   status: PaymentStatus
   receiptUrl?: string | null

@@ -5,14 +5,15 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   try {
     const { id } = await params
     const body = await request.json()
-    const { name, monthlyFee, isActive } = body
+    const { name, monthlyFee, isActive, phone } = body
 
     const student = await prisma.student.update({
       where: { id },
       data: {
         name,
         monthlyFee: monthlyFee !== undefined ? parseFloat(monthlyFee) : undefined,
-        isActive
+        isActive,
+        phone: phone !== undefined ? (phone || null) : undefined
       }
     })
 

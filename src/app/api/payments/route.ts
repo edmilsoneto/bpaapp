@@ -28,6 +28,7 @@ export async function GET(request: Request) {
       return {
         studentId: student.id,
         studentName: student.name,
+        studentPhone: student.phone,
         monthlyFee: student.monthlyFee,
         status: payment ? payment.status : 'PENDING',
         paymentId: payment ? payment.id : null,

@@ -12,6 +12,7 @@ model Student {
   name       String
   monthlyFee Float     @default(80.0)
   isActive   Boolean   @default(true)
+  phone      String?
   payments    Payment[]
   attendances Attendance[]
   createdAt   DateTime  @default(now())
