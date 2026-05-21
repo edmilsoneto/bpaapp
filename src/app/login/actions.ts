@@ -12,7 +12,7 @@ export async function loginAction(formData: FormData) {
   if (password === adminPassword) {
     const cookieStore = await cookies()
     // Set a secure cookie that expires in 30 days
-    cookieStore.set('bpa_auth_token', 'authenticated', {
+    cookieStore.set('bpa_session', 'authenticated', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
@@ -28,6 +28,6 @@ export async function loginAction(formData: FormData) {
 
 export async function logoutAction() {
   const cookieStore = await cookies()
-  cookieStore.delete('bpa_auth_token')
+  cookieStore.delete('bpa_session')
   redirect('/login')
 }
