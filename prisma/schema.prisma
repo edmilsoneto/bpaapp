@@ -47,6 +47,7 @@ model TrainingDay {
   month      String   // format "MM/YYYY"
   day        Int
   date       DateTime
+  isClosed   Boolean      @default(false)
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
   attendances Attendance[]

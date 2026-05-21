@@ -19,6 +19,7 @@ interface TrainingDay {
   id: string
   day: number
   date: string
+  isClosed: boolean
 }
 
 interface StudentAttendance {
@@ -138,6 +139,32 @@ export default function FrequenciaPage() {
     }
   }
 
+  const toggleDayStatus = async (isClosed: boolean) => {
+    if (!selectedDayId) return
+    try {
+      const res = await fetch('/api/trainingDays/close', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ trainingDayId: selectedDayId, isClosed })
+      })
+
+      if (res.ok) {
+        toast.success(isClosed ? 'Chamada encerrada com sucesso!' : 'Chamada reaberta para edições.')
+        // Update local state
+        setTrainingDays(prev => prev.map(d => 
+          d.id === selectedDayId ? { ...d, isClosed } : d
+        ))
+      } else {
+        toast.error('Erro ao atualizar status da chamada.')
+      }
+    } catch (error) {
+      console.error(error)
+      toast.error('Erro de conexão ao atualizar status.')
+    }
+  }
+
+  const selectedDay = trainingDays.find(d => d.id === selectedDayId)
+
   return (
     <div className="space-y-6 pb-10">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -178,6 +205,11 @@ export default function FrequenciaPage() {
               <CardTitle className="text-lg flex items-center gap-2">
                 <Users className="w-5 h-5 text-indigo-400" />
                 Bater o Ponto
+                {selectedDay?.isClosed && (
+                  <span className="ml-2 px-2 py-0.5 rounded text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    Encerrado ✔
+                  </span>
+                )}
               </CardTitle>
               {trainingDays.length > 0 && (
                 <div className="flex items-center gap-2 w-full sm:w-auto">
@@ -235,6 +267,7 @@ export default function FrequenciaPage() {
                           <Switch 
                             checked={att.isPresent}
                             onCheckedChange={() => toggleAttendance(att.studentId, att.isPresent)}
+                            disabled={selectedDay?.isClosed}
                             className="data-[state=checked]:bg-emerald-500"
                           />
                         </TableCell>
@@ -243,6 +276,26 @@ export default function FrequenciaPage() {
                   )}
                 </TableBody>
               </Table>
+            )}
+            
+            {!loadingDays && trainingDays.length > 0 && selectedDay && (
+              <div className="p-4 border-t border-neutral-900/50 flex justify-end items-center bg-neutral-950/30">
+                {selectedDay.isClosed ? (
+                  <button 
+                    onClick={() => toggleDayStatus(false)}
+                    className="text-xs text-neutral-500 hover:text-neutral-300 underline underline-offset-2 transition-colors"
+                  >
+                    Reabrir chamada
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => toggleDayStatus(true)}
+                    className="bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-2 px-6 rounded-lg shadow-lg shadow-emerald-900/20 transition-all active:scale-95"
+                  >
+                    Salvar e Encerrar Chamada
+                  </button>
+                )}
+              </div>
             )}
           </CardContent>
         </Card>
